@@ -9,6 +9,10 @@ export default function Home({ navigation }) {
         <Button mode="contained" onPress={() => navigation.navigate('testCamera')}>
           Teste da Câmera
         </Button>
+
+        <Button mode="contained" onPress={() => navigation.navigate('testSqlite')}>
+          Teste Sqlite
+        </Button>
       </ScrollView>
     </SafeAreaView>
   )

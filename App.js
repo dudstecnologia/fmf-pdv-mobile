@@ -4,6 +4,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 import Home from './src/pages/Home';
 import TestCamera from './src/pages/TestCamera';
+import TestSqlite from './src/pages/TestSqlite';
 
 const Stack = createNativeStackNavigator();
 
@@ -23,6 +24,7 @@ export default function App() {
       <Stack.Navigator initialRouteName="home">
         <Stack.Screen name="home" component={ Home } options={{ title: 'Tela Inicial' }} />
         <Stack.Screen name="testCamera" component={ TestCamera } options={{ title: 'Teste da Câmera' }} />
+        <Stack.Screen name="testSqlite" component={ TestSqlite } options={{ title: 'Teste do Sqlite' }} />
       </Stack.Navigator>
     </NavigationContainer>
   );

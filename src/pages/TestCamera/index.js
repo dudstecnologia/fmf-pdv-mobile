@@ -22,7 +22,7 @@ export default function TestCamera({ navigation }) {
   }, []);
 
   const codeScanner = useCodeScanner({
-    codeTypes: ['qr', 'ean-13'],
+    codeTypes: ['qr', 'ean-13', 'code-128'],
     onCodeScanned: (codes) => {
       console.log(codes)
     }
