@@ -1,19 +1,20 @@
 import React, { useEffect, useState } from 'react';
 import { SafeAreaView, ScrollView, Text, TouchableOpacity } from 'react-native';
-import { Button } from 'react-native-paper';
+import globalStyles from '../../globalStyles';
 
 export default function Home({ navigation }) {
   return (
-    <SafeAreaView>
-      <ScrollView>
-        <Button mode="contained" onPress={() => navigation.navigate('testCamera')}>
-          Teste da Câmera
-        </Button>
+    <SafeAreaView style={{ padding: 15 }}>
+      {/* <Button mode="contained" onPress={() => navigation.navigate('testCamera')}>
+        Teste da Câmera
+      </Button>
+      <Button mode="contained" onPress={() => navigation.navigate('testSqlite')}>
+        Teste Sqlite
+      </Button> */}
 
-        <Button mode="contained" onPress={() => navigation.navigate('testSqlite')}>
-          Teste Sqlite
-        </Button>
-      </ScrollView>
+      <TouchableOpacity style={globalStyles.button} onPress={() => navigation.navigate('productList')}>
+        <Text style={globalStyles.buttonText}>PRODUTOS</Text>
+      </TouchableOpacity>
     </SafeAreaView>
   )
 }
