@@ -63,7 +63,7 @@ export default function App() {
                     <Button
                         type="clear"
                         icon={<Icon name="add" size={25} color="white" />}
-                        onPress={() => navigation.navigate('UserForm')}
+                        onPress={() => navigation.navigate('productForm')}
                     />
                 )
             }
