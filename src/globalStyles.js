@@ -13,5 +13,16 @@ export default StyleSheet.create({
   buttonText: {
     color: 'white',
     fontSize: 40,
+  },
+  labelBase: {
+    fontSize: 17,
+    color: '#0D47A1'
+  },
+  inputBase: {
+    borderColor: 'gray',
+    borderWidth: 1,
+    borderRadius: 7,
+    fontSize: 17,
+    marginTop: 7
   }
 })

@@ -8,6 +8,7 @@ import Home from './src/pages/Home';
 import TestCamera from './src/pages/TestCamera';
 import TestSqlite from './src/pages/TestSqlite';
 import ProductList from './src/pages/ProductList';
+import ProductForm from './src/pages/ProductForm';
 
 const Stack = createNativeStackNavigator();
 
@@ -58,7 +59,7 @@ export default function App() {
           component={ ProductList }
           options={({ navigation }) => {
             return {
-                title: 'Lista de Usuários',
+                title: 'Lista de Produtos',
                 headerRight: () => (
                     <Button
                         type="clear"
@@ -69,6 +70,7 @@ export default function App() {
             }
           }}
         />
+        <Stack.Screen name="productForm" component={ ProductForm } options={{ title: 'Produto' }} />
       </Stack.Navigator>
     </NavigationContainer>
   );

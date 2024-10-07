@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { SafeAreaView, ScrollView, Text, TouchableOpacity } from 'react-native';
 
-export default function Home({ navigation }) {
+export default function ProductList({ navigation }) {
   return (
     <SafeAreaView style={{ padding: 15 }}>
       <ScrollView>
