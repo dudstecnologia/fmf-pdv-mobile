@@ -3,6 +3,7 @@ import { SafeAreaView, ScrollView, TextInput, View, TouchableOpacity, StyleSheet
 import { Text } from '@rneui/themed';
 import globalStyles from '../../globalStyles';
 import MaskInput, { Masks } from 'react-native-mask-input';
+import { createProduct } from '../../services/product';
 
 export default function ProductForm({ navigation }) {
   // navigation.setOptions({ headerTitle: 'Editar Produto' })
@@ -27,7 +28,7 @@ export default function ProductForm({ navigation }) {
       return false;
     }
 
-    console.warn({
+    createProduct({
       name,
       barcode,
       price,
