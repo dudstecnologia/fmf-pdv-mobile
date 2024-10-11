@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { SafeAreaView, ScrollView, TextInput, View, TouchableOpacity, StyleSheet } from 'react-native';
+import { SafeAreaView, ScrollView, TextInput, View, TouchableOpacity, StyleSheet, Alert } from 'react-native';
 import { Text } from '@rneui/themed';
 import globalStyles from '../../globalStyles';
 import MaskInput, { Masks } from 'react-native-mask-input';
@@ -10,6 +10,30 @@ export default function ProductForm({ navigation }) {
   const [barcode, setBarcode] = useState('');
   const [price, setPrice] = useState('');
   const [stock, setStock] = useState('1');
+
+  const saveProduct = () => {
+    if (!name || !barcode || !price || !stock) {
+      Alert.alert('Ops!', 'Todos os campos são obrigatórios');
+      return false;
+    }
+
+    if (isNaN(parseFloat(price)) || parseFloat(price) <= 0) {
+      Alert.alert('Ops!', 'O preço é obrigatório');
+      return false;
+    }
+
+    if (isNaN(parseInt(stock)) || stock.includes(',') || stock.includes('.')) {
+      Alert.alert('Ops!', 'O estoque deve ser um número inteiro');
+      return false;
+    }
+
+    console.warn({
+      name,
+      barcode,
+      price,
+      stock
+    })
+  }
 
   return (
     <SafeAreaView style={{ padding: 15 }}>
@@ -37,8 +61,8 @@ export default function ProductForm({ navigation }) {
               style={globalStyles.inputBase}
               value={price}
               onChangeText={(masked, unmasked) => {
-                const total = (parseInt(unmasked) / 100).toFixed(2)
-                setPrice(total)
+                const total = (parseInt(!unmasked ? '0' : unmasked) / 100).toFixed(2);
+                setPrice(total);
               }}
               mask={Masks.BRL_CURRENCY}
             />
@@ -62,7 +86,7 @@ export default function ProductForm({ navigation }) {
           <Text>{ stock }</Text>
         </View>
 
-        <TouchableOpacity style={styles.buttonSave} onPress={() => navigation.navigate('productList')}>
+        <TouchableOpacity style={styles.buttonSave} onPress={() => saveProduct()}>
           <Text style={globalStyles.buttonText}>Salvar</Text>
         </TouchableOpacity>
       </ScrollView>
