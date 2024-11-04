@@ -7,8 +7,10 @@ export default function ProductList({ navigation }) {
 
   const loadData = async () => {
     try {
-      const products = await listProducts()
-      setProducts(products)
+      const productsDb = await listProducts()
+      setProducts(productsDb)
+
+      console.log(products)
     } catch (error) {
       // console.error(error)
     }
@@ -16,7 +18,7 @@ export default function ProductList({ navigation }) {
 
   useEffect(() => {
     loadData()
-  }, [loadData])
+  }, [])
 
   return (
     <SafeAreaView style={{ padding: 15 }}>
