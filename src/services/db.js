@@ -9,7 +9,7 @@ export const connectDb = async () => {
       console.log('Conectado ao Sqlite')
     },
     (error) => {
-      console.error(error)
+      console.error('Erro Sqlite', error)
       throw Error("Erro ao conectar ao Sqlite")
     }
   )

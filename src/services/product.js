@@ -4,17 +4,16 @@ export const listProducts = async () => {
   try {
     const db = await connectDb()
 
+    let products = []
     const results = await db.executeSql(`SELECT * FROM products ORDER BY id DESC`)
     if (results) {
       results?.forEach((result) => {
         for (let index = 0; index < result.rows.length; index++) {
-          console.log(result.rows.item(index))
+          products.push(result.rows.item(index))
         }
       })
 
-      if (results[0].rows.length == 0) {
-        // await setTest(db)
-      }
+      return products
     }
   } catch (error) {
     throw Error(error)
