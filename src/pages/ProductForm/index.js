@@ -5,12 +5,28 @@ import globalStyles from '../../globalStyles';
 import MaskInput, { Masks } from 'react-native-mask-input';
 import { createProduct } from '../../services/product';
 
-export default function ProductForm({ navigation }) {
-  // navigation.setOptions({ headerTitle: 'Editar Produto' })
+export default function ProductForm({ navigation, route }) {
+  const [id, setId] = useState(0);
   const [name, setName] = useState('');
   const [barcode, setBarcode] = useState('');
   const [price, setPrice] = useState('');
   const [stock, setStock] = useState('1');
+
+  const checkInit = () => {
+    if (route.params && route.params.product) {
+      navigation.setOptions({ headerTitle: 'Editar Produto' })
+  
+      setId(route.params.product.id)
+      setName(route.params.product.name)
+      setBarcode(route.params.product.barcode)
+      setPrice(`${route.params.product.price.toFixed(2)}`)
+      setStock(`${route.params.product.stock}`)
+    }
+  }
+
+  useEffect(() => {
+    checkInit()
+  }, [])
 
   const saveProduct = () => {
     if (!name || !barcode || !price || !stock) {

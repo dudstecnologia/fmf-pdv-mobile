@@ -70,7 +70,7 @@ export default function App() {
             }
           }}
         />
-        <Stack.Screen name="productForm" component={ ProductForm } options={{ title: 'Produto' }} />
+        <Stack.Screen name="productForm" component={ ProductForm } options={{ title: 'Novo Produto' }} />
       </Stack.Navigator>
     </NavigationContainer>
   );

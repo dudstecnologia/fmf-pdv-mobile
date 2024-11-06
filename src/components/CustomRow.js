@@ -5,6 +5,7 @@ import {
   StyleSheet,
   TouchableOpacity
 } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
 
 const styles = StyleSheet.create({
   container: {
@@ -47,9 +48,10 @@ const styles = StyleSheet.create({
 });
 
 const CustomRow = ({ product }) => {
+  const navigation = useNavigation();
+
   const clickProduct = (p) => {
-    console.log('Passou aqui: ')
-    console.log(p)
+    navigation.navigate('productForm', { product: p })
   }
 
   return (
