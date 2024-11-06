@@ -14,11 +14,7 @@ const CustomListview = ({ itemList }) => (
     <FlatList
       data={itemList}
       renderItem={({ item }) => <CustomRow
-        id={item.id}
-        name={item.name}
-        price={item.price}
-        barcode={item.barcode}
-        stock={item.stock}
+        product={item}
       />}
     />
   </View>

@@ -1,5 +1,10 @@
 import React from 'react';
-import { View, Text, StyleSheet, Image } from 'react-native';
+import {
+  View,
+  Text,
+  StyleSheet,
+  TouchableOpacity
+} from 'react-native';
 
 const styles = StyleSheet.create({
   container: {
@@ -41,25 +46,34 @@ const styles = StyleSheet.create({
   }
 });
 
-const CustomRow = ({ id, name, price, barcode, stock }) => (
-  <View style={styles.container}>
-    <View style={styles.row1}>
-      <Text style={styles.name}>
-        {id} - {name}
-      </Text>
-      <Text style={styles.price}>
-        R$ {price.toFixed(2)}
-      </Text>
-    </View>
-    <View style={styles.row2}>
-      <Text style={styles.barcode}>
-        Cod Barras: {barcode}
-      </Text>
-      <Text style={styles.stock}>
-        Estoque: {stock}
-      </Text>
-    </View>
-  </View>
-);
+const CustomRow = ({ product }) => {
+  const clickProduct = (p) => {
+    console.log('Passou aqui: ')
+    console.log(p)
+  }
+
+  return (
+    <TouchableOpacity onPress={() => clickProduct(product)}>
+      <View style={styles.container}>
+        <View style={styles.row1}>
+          <Text style={styles.name}>
+            {product.id} - {product.name}
+          </Text>
+          <Text style={styles.price}>
+            R$ {product.price.toFixed(2)}
+          </Text>
+        </View>
+        <View style={styles.row2}>
+          <Text style={styles.barcode}>
+            Cod Barras: {product.barcode}
+          </Text>
+          <Text style={styles.stock}>
+            Estoque: {product.stock}
+          </Text>
+        </View>
+      </View>
+    </TouchableOpacity>
+  )
+}
 
 export default CustomRow;
