@@ -44,12 +44,28 @@ export default function ProductForm({ navigation, route }) {
       return false;
     }
 
-    createProduct({
-      name,
-      barcode,
-      price,
-      stock
-    })
+    try {
+      if (id == 0) {
+        createProduct({
+          name,
+          barcode,
+          price,
+          stock
+        })
+
+        setId(0)
+        setName('')
+        setBarcode('')
+        setPrice('')
+        setStock('1')
+      } else {
+        // Vai atualizar
+      }
+
+      Alert.alert('Perfeito!', 'Salvo com sucesso');
+    } catch (e) {
+      Alert.alert('Ops!', 'Erro ao salvar, detalhes:' + e);
+    }
   }
 
   return (
