@@ -3,7 +3,7 @@ import { SafeAreaView, ScrollView, TextInput, View, TouchableOpacity, StyleSheet
 import { Text } from '@rneui/themed';
 import globalStyles from '../../globalStyles';
 import MaskInput, { Masks } from 'react-native-mask-input';
-import { createProduct } from '../../services/product';
+import { createProduct, updateProduct } from '../../services/product';
 
 export default function ProductForm({ navigation, route }) {
   const [id, setId] = useState(0);
@@ -59,7 +59,13 @@ export default function ProductForm({ navigation, route }) {
         setPrice('')
         setStock('1')
       } else {
-        // Vai atualizar
+        updateProduct({
+          id,
+          name,
+          barcode,
+          price,
+          stock
+        })
       }
 
       Alert.alert('Perfeito!', 'Salvo com sucesso');

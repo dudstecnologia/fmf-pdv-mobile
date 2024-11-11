@@ -25,10 +25,21 @@ export const createProduct = async (product) => {
     const db = await connectDb()
     
     const queryBase = `INSERT INTO products (name, barcode, price, stock)
-      VALUES ('${product.name}', '${product.barcode}', ${product.price}, ${product.stock})`;
+      VALUES ('${product.name}', '${product.barcode}', ${product.price}, ${product.stock})`
 
-    await db.executeSql(queryBase);
-    console.log('Salvo com sucesso')
+    await db.executeSql(queryBase)
+  } catch (error) {
+    throw Error(error)
+  }
+}
+
+export const updateProduct = async (product) => {
+  try {
+    const db = await connectDb()
+
+    const queryBase = `UPDATE products SET name='${product.name}', barcode='${product.barcode}', price=${product.price}, stock=${product.stock} WHERE id=${product.id}`
+
+    await db.executeSql(queryBase)
   } catch (error) {
     throw Error(error)
   }
