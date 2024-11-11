@@ -21,7 +21,7 @@ export default function ProductList({ navigation }) {
 
   return (
     <SafeAreaView style={{ flex: 1 }}>
-      <CustomListview itemList={products} />
+      <CustomListview itemList={products} updateList={loadData} />
     </SafeAreaView>
   )
 }
