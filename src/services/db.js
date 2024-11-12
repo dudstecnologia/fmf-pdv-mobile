@@ -6,7 +6,7 @@ export const connectDb = async () => {
   return openDatabase(
     { name: "pdv.db", location: "default" },
     () => {
-      console.log('Conectado ao Sqlite')
+      // console.log('Conectado ao Sqlite')
     },
     (error) => {
       console.error('Erro Sqlite', error)
@@ -53,7 +53,7 @@ export const createTables = async (db) => {
     await db.executeSql(tableOrders)
     await db.executeSql(tableOrderItems)
 
-    console.log('Tabelas criadas ou iniciadas com sucesso')
+    // console.log('Tabelas criadas ou iniciadas com sucesso')
   } catch (error) {
     console.log('Erro ao criar as tabelas')
     console.log(error)

@@ -44,3 +44,19 @@ export const updateProduct = async (product) => {
     throw Error(error)
   }
 }
+
+export const findProductById = async (id) => {
+  try {
+    const db = await connectDb()
+
+    const result = await db.executeSql(`SELECT * FROM products WHERE id=${id}`)
+
+    if (result && result[0].rows.length > 0) {
+      return result[0].rows.item(0)
+    }
+
+    return null
+  } catch (error) {
+    throw Error(error)
+  }
+} 

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { SafeAreaView, ScrollView, Text, TouchableOpacity } from 'react-native';
+import { SafeAreaView, ScrollView, Text, TouchableOpacity, StyleSheet } from 'react-native';
 import globalStyles from '../../globalStyles';
 
 export default function Home({ navigation }) {
@@ -12,9 +12,20 @@ export default function Home({ navigation }) {
         Teste Sqlite
       </Button> */}
 
-      <TouchableOpacity style={globalStyles.button} onPress={() => navigation.navigate('productList')}>
+      <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('orderNew')}>
+        <Text style={globalStyles.buttonText}>INICIAR VENDA</Text>
+      </TouchableOpacity>
+
+      <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('productList')}>
         <Text style={globalStyles.buttonText}>PRODUTOS</Text>
       </TouchableOpacity>
     </SafeAreaView>
   )
 }
+
+const styles = StyleSheet.create({
+  button: {
+    ...globalStyles.button,
+    marginBottom: 15
+  }
+});

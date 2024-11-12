@@ -9,6 +9,7 @@ import TestCamera from './src/pages/TestCamera';
 import TestSqlite from './src/pages/TestSqlite';
 import ProductList from './src/pages/ProductList';
 import ProductForm from './src/pages/ProductForm';
+import OrderNew from './src/pages/OrderNew';
 
 const Stack = createNativeStackNavigator();
 
@@ -71,6 +72,7 @@ export default function App() {
           }}
         />
         <Stack.Screen name="productForm" component={ ProductForm } options={{ title: 'Novo Produto' }} />
+        <Stack.Screen name="orderNew" component={ OrderNew } options={{ title: 'Nova Venda' }} />
       </Stack.Navigator>
     </NavigationContainer>
   );
