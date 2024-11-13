@@ -118,12 +118,12 @@ export default function ProductForm({ navigation, route }) {
           </View>
         </View>
 
-        <View>
+        {/* <View>
           <Text>{ name }</Text>
           <Text>{ barcode }</Text>
           <Text>{ price }</Text>
           <Text>{ stock }</Text>
-        </View>
+        </View> */}
 
         <TouchableOpacity style={styles.buttonSave} onPress={() => saveProduct()}>
           <Text style={globalStyles.buttonText}>Salvar</Text>

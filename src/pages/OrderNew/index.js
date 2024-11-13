@@ -92,7 +92,7 @@ export default function OrderNew({ navigation }) {
   return (
     <SafeAreaView style={{ padding: 15 }}>
       <View style={{ ...styles.column, justifyContent: 'flex-start', gap: 10 }}>
-        <View style={{ width: '25%'}}>
+        <View style={{ width: '30%'}}>
           <Text style={globalStyles.labelBase}>Cod. Produto</Text>
           <TextInput
             keyboardType='numeric'
@@ -103,13 +103,13 @@ export default function OrderNew({ navigation }) {
           />
         </View>
 
-        <View style={{ width: '20%'}}>
+        <View style={{ width: '25%'}}>
           <Text style={globalStyles.labelBase}></Text>
           <TouchableOpacity style={styles.buttonOrder} onPress={() => searchProduct()}>
             <Text style={styles.buttonOrderText}>Buscar</Text>
           </TouchableOpacity>
         </View>
-        <View style={{ width: '25%'}}>
+        <View style={{ width: '30%'}}>
           <Text style={globalStyles.labelBase}></Text>
           <TouchableOpacity style={styles.buttonOrder} onPress={() => addOrder()}>
             <Text style={styles.buttonOrderText}>Escanear</Text>
@@ -118,7 +118,7 @@ export default function OrderNew({ navigation }) {
       </View>
 
       <View style={styles.column}>
-        <View style={{ width: '10%'}}>
+        <View style={{ width: '15%'}}>
           <Text style={globalStyles.labelBase}>QTD</Text>
           <TextInput
             keyboardType='numeric'
@@ -128,7 +128,7 @@ export default function OrderNew({ navigation }) {
             value={qtd}
           />
         </View>
-        <View style={{ width: '60%'}}>
+        <View style={{ width: '50%'}}>
           <Text style={globalStyles.labelBase}>Produto</Text>
           <TextInput
             placeholder=''
@@ -137,7 +137,7 @@ export default function OrderNew({ navigation }) {
             readOnly={true}
           />
         </View>
-        <View style={{ width: '25%'}}>
+        <View style={{ width: '30%'}}>
           <Text style={globalStyles.labelBase}></Text>
           <TouchableOpacity style={styles.buttonOrder} onPress={() => addProduct()}>
             <Text style={styles.buttonOrderText}>Adicionar</Text>
@@ -149,7 +149,7 @@ export default function OrderNew({ navigation }) {
         <View style={{ width: '45%'}}>
           <Text style={styles.txtTotal}>R$ { total.toFixed(2) }</Text>
         </View>
-        <View style={{ width: '45%'}}>
+        <View style={{ width: '55%'}}>
           <TouchableOpacity style={styles.buttonOrderDone} onPress={() => addOrder()}>
             <Text style={styles.buttonOrderText}>Finalizar Venda</Text>
           </TouchableOpacity>
