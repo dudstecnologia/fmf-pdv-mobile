@@ -7,13 +7,23 @@ import CustomRow from '../../components/CustomRow';
 
 export default function OrderNew({ navigation }) {
   const [id, setId] = useState('');
-  const [name, setName] = useState('');
-  const [barcode, setBarcode] = useState('');
-  const [price, setPrice] = useState('');
   const [qtd, setQtd] = useState('1');
 
   const [productTemp, setProductTemp] = useState(null)
   const [products, setProducts] = useState([])
+  const [total, setTotal] = useState(0)
+
+  useEffect(() => {
+    getTotal()
+  }, [products]);
+
+  const getTotal = () => {
+    const totalTemp = products.reduce((v, e) => {
+      return v + (e.price * e.qtd);
+    }, 0);
+
+    setTotal(totalTemp);
+  }
 
   const searchProduct = async () => {
     if (!id) {
@@ -135,18 +145,23 @@ export default function OrderNew({ navigation }) {
         </View>
       </View>
 
-      <TouchableOpacity style={styles.buttonOrderDone} onPress={() => addOrder()}>
-        <Text style={styles.buttonOrderText}>Finalizar Venda</Text>
-      </TouchableOpacity>
-
-      <View style={styles.container}>
-        <FlatList
-          data={products}
-          renderItem={({ item }) => <CustomRow
-            product={item}
-          />}
-        />
+      <View style={styles.column}>
+        <View style={{ width: '45%'}}>
+          <Text style={styles.txtTotal}>R$ { total.toFixed(2) }</Text>
+        </View>
+        <View style={{ width: '45%'}}>
+          <TouchableOpacity style={styles.buttonOrderDone} onPress={() => addOrder()}>
+            <Text style={styles.buttonOrderText}>Finalizar Venda</Text>
+          </TouchableOpacity>
+        </View>
       </View>
+
+      <FlatList
+        data={products}
+        renderItem={({ item }) => <CustomRow
+          product={item}
+        />}
+      />
     </SafeAreaView>
   )
 }
@@ -180,5 +195,9 @@ const styles = StyleSheet.create({
     ...globalStyles.button,
     backgroundColor: '#43A047',
     marginTop: 5
+  },
+  txtTotal: {
+    fontSize: 35,
+    color: 'green'
   }
 });
