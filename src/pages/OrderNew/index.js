@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import { SafeAreaView, ScrollView, TextInput, View, TouchableOpacity, StyleSheet, Alert } from 'react-native';
+import { SafeAreaView, ScrollView, TextInput, View, TouchableOpacity, StyleSheet, Alert, FlatList } from 'react-native';
 import { Text } from '@rneui/themed';
 import globalStyles from '../../globalStyles';
-import { createProduct, updateProduct, findProductById } from '../../services/product';
+import { findProductById } from '../../services/product';
+import CustomRow from '../../components/CustomRow';
 
 export default function OrderNew({ navigation }) {
   const [id, setId] = useState('');
@@ -138,8 +139,14 @@ export default function OrderNew({ navigation }) {
         <Text style={styles.buttonOrderText}>Finalizar Venda</Text>
       </TouchableOpacity>
 
-      <ScrollView>
-      </ScrollView>
+      <View style={styles.container}>
+        <FlatList
+          data={products}
+          renderItem={({ item }) => <CustomRow
+            product={item}
+          />}
+        />
+      </View>
     </SafeAreaView>
   )
 }

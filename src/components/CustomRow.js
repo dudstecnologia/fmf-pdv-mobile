@@ -44,6 +44,14 @@ const styles = StyleSheet.create({
   },
   stock: {
     fontSize: 18
+  },
+  qtd: {
+    fontSize: 18,
+    color: 'red'
+  },
+  total: {
+    fontSize: 18,
+    color: 'green'
   }
 });
 
@@ -65,14 +73,26 @@ const CustomRow = ({ product }) => {
             R$ {product.price.toFixed(2)}
           </Text>
         </View>
-        <View style={styles.row2}>
-          <Text style={styles.barcode}>
-            Cod Barras: {product.barcode}
-          </Text>
-          <Text style={styles.stock}>
-            Estoque: {product.stock}
-          </Text>
-        </View>
+        {
+            product.qtd ?
+            <View style={styles.row2}>
+                <Text style={styles.qtd}>
+                Qtd: {product.qtd}
+                </Text>
+                <Text style={styles.total}>
+                Total: { (product.price * product.qtd).toFixed(2) }
+                </Text>
+            </View>
+            :
+            <View style={styles.row2}>
+                <Text style={styles.barcode}>
+                    Cod Barras: {product.barcode}
+                </Text>
+                <Text style={styles.stock}>
+                    Estoque: {product.stock}
+                </Text>
+            </View>
+        }
       </View>
     </TouchableOpacity>
   )
