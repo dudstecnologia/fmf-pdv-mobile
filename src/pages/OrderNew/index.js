@@ -45,7 +45,14 @@ export default function OrderNew({ navigation }) {
       return false;
     }
 
-    console.log('Vai adicionar o produto')
+    let findProduct = products.findIndex(p => p.id == productTemp.id)
+
+    if (findProduct >= 0) {
+      products[findProduct].qtd += parseInt(qtd) 
+      setProducts([...products])
+    } else {
+      setProducts([...products, { ...productTemp, qtd: parseInt(qtd) }])
+    }
   }
 
   const addOrder = () => {
