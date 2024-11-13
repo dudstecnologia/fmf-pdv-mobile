@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import { SafeAreaView, ScrollView, TextInput, View, TouchableOpacity, StyleSheet, Alert } from 'react-native';
 import { Text } from '@rneui/themed';
 import globalStyles from '../../globalStyles';
-import MaskInput, { Masks } from 'react-native-mask-input';
 import { createProduct, updateProduct, findProductById } from '../../services/product';
 
 export default function OrderNew({ navigation }) {
@@ -12,13 +11,8 @@ export default function OrderNew({ navigation }) {
   const [price, setPrice] = useState('');
   const [qtd, setQtd] = useState('1');
 
-  const [idTemp, setIdTemp] = useState(0);
-  const [nameTemp, setNameTemp] = useState('');
-
-  const clearTemp = () => {
-    setIdTemp(0)
-    setNameTemp('')
-  }
+  const [productTemp, setProductTemp] = useState(null)
+  const [products, setProducts] = useState([])
 
   const searchProduct = async () => {
     if (!id) {
@@ -29,17 +23,29 @@ export default function OrderNew({ navigation }) {
     try {
       let product = await findProductById(id)
 
-      if (product) {
-        setIdTemp(product.id)
-        setNameTemp(product.name)
-      } else {
-        clearTemp()
-        Alert.alert('Ops!', 'Produto não encontrado');
+      if (!product) {
+        throw ''
       }
+
+      setProductTemp(product)
     } catch (e) {
-      clearTemp()
+      setProductTemp(null)
       Alert.alert('Ops!', 'Produto não encontrado');
     }
+  }
+
+  const addProduct = async = () => {
+    if (isNaN(parseInt(qtd)) || qtd.includes(',') || qtd.includes('.')) {
+      Alert.alert('Ops!', 'A quantidade deve ser um número inteiro');
+      return false;
+    }
+
+    if (!productTemp) {
+      Alert.alert('Ops!', 'Nenhum produto está selecionado');
+      return false;
+    }
+
+    console.log('Vai adicionar o produto')
   }
 
   const addOrder = () => {
@@ -109,13 +115,13 @@ export default function OrderNew({ navigation }) {
           <TextInput
             placeholder=''
             style={globalStyles.inputBase}
-            value={nameTemp}
+            value={productTemp?.name}
             readOnly={true}
           />
         </View>
         <View style={{ width: '25%'}}>
           <Text style={globalStyles.labelBase}></Text>
-          <TouchableOpacity style={styles.buttonOrder} onPress={() => addOrder()}>
+          <TouchableOpacity style={styles.buttonOrder} onPress={() => addProduct()}>
             <Text style={styles.buttonOrderText}>Adicionar</Text>
           </TouchableOpacity>
         </View>
