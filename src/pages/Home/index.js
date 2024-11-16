@@ -19,6 +19,10 @@ export default function Home({ navigation }) {
       <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('productList')}>
         <Text style={globalStyles.buttonText}>PRODUTOS</Text>
       </TouchableOpacity>
+
+      <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('orderList')}>
+        <Text style={globalStyles.buttonText}>VENDAS</Text>
+      </TouchableOpacity>
     </SafeAreaView>
   )
 }

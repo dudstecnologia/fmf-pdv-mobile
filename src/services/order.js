@@ -1,5 +1,25 @@
 import { connectDb } from './db'
 
+export const listOrders = async () => {
+  try {
+    const db = await connectDb()
+
+    let orders = []
+    const results = await db.executeSql(`SELECT * FROM orders ORDER BY id DESC`)
+    if (results) {
+      results?.forEach((result) => {
+        for (let index = 0; index < result.rows.length; index++) {
+          orders.push(result.rows.item(index))
+        }
+      })
+
+      return orders
+    }
+  } catch (error) {
+    throw Error(error)
+  }
+}
+
 export const createOrder = async (items, total) => {
   try {
     const db = await connectDb();
