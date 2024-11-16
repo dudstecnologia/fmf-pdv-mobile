@@ -20,6 +20,26 @@ export const listOrders = async () => {
   }
 }
 
+export const bestSellingProducts = async () => {
+  try {
+    const db = await connectDb()
+
+    let orders = []
+    const results = await db.executeSql(`SELECT product_id, (SELECT name FROM products WHERE id = o.product_id) name, SUM(quantity) total FROM order_items o GROUP BY product_id ORDER BY total DESC LIMIT 5`)
+    if (results) {
+      results?.forEach((result) => {
+        for (let index = 0; index < result.rows.length; index++) {
+          orders.push(result.rows.item(index))
+        }
+      })
+
+      return orders
+    }
+  } catch (error) {
+    throw Error(error)
+  }
+}
+
 export const createOrder = async (items, total) => {
   try {
     const db = await connectDb();

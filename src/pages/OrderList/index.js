@@ -1,9 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import { SafeAreaView, Text, FlatList, StyleSheet, View } from 'react-native';
-import { listOrders } from '../../services/order';
+import { SafeAreaView, Text, FlatList, StyleSheet, View, Dimensions } from 'react-native';
+import { listOrders, bestSellingProducts } from '../../services/order';
+import { PieChart } from "react-native-chart-kit";
+const { width }  = Dimensions.get('window');
 
 export default function OrderList({ navigation }) {
   const [orders, setOrders] = useState([]);
+  const [ordersChart, setOrdersChart] = useState([]);
 
   const loadData = async () => {
     try {
@@ -14,12 +17,52 @@ export default function OrderList({ navigation }) {
     }
   }
 
+  const loadChart = async () => {
+    try {
+      const ordersChartDb = await bestSellingProducts()
+      const colors = ['blue', 'green', 'magenta', 'orange', 'red']
+
+      const or = ordersChartDb.map((o, i) => {
+        o.color = colors[i]
+        o.legendFontColor = '#000'
+        o.legendFontSize = 15
+        return o
+      })
+
+      setOrdersChart(or)
+    } catch (error) {
+      // console.error(error)
+    }
+  }
+
   useEffect(() => {
     loadData()
+    loadChart()
   }, [])
 
   return (
     <SafeAreaView style={{ flex: 1 }}>
+      <PieChart
+        data={ordersChart}
+        width={width - 10}
+        height={250}
+        chartConfig={{
+          backgroundColor: "#e26a00",
+          backgroundGradientFrom: "#fb8c00",
+          backgroundGradientTo: "#ffa726",
+          color: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
+          labelColor: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
+          style: {
+            borderRadius: 16
+          }
+        }}
+        accessor={"total"}
+        backgroundColor={"transparent"}
+        paddingLeft={"15"}
+        center={[0, 0]}
+        // absolute
+      />
+
       <FlatList
         data={orders}
         renderItem={({ item }) => <View style={styles.container}>
