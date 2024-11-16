@@ -1,8 +1,15 @@
 import React, { useEffect, useState } from 'react';
-import { SafeAreaView, ScrollView, TextInput, View, TouchableOpacity, StyleSheet, Alert, FlatList } from 'react-native';
+import {
+  SafeAreaView,
+  TextInput,
+  View,
+  TouchableOpacity,
+  StyleSheet,
+  Alert,
+  FlatList } from 'react-native';
 import { Text } from '@rneui/themed';
 import globalStyles from '../../globalStyles';
-import { findProductById } from '../../services/product';
+import { findProductById, findProductByBarcode } from '../../services/product';
 import CustomRow from '../../components/CustomRow';
 import ModalBarcode from '../../components/ModalBarcode';
 
@@ -91,9 +98,21 @@ export default function OrderNew({ navigation }) {
     }
   }
 
-  const setBarcode = (barcode) => {
-    console.log('Passou aqui: ' + barcode);
+  const setBarcode = async (barcode) => {
     setModalVisible(false);
+
+    try {
+      let product = await findProductByBarcode(barcode)
+
+      if (!product) {
+        throw ''
+      }
+
+      setProductTemp(product)
+    } catch (e) {
+      setProductTemp(null)
+      Alert.alert('Ops!', 'Produto não encontrado');
+    }
   }
 
   return (

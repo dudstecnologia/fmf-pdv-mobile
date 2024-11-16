@@ -59,4 +59,20 @@ export const findProductById = async (id) => {
   } catch (error) {
     throw Error(error)
   }
-} 
+}
+
+export const findProductByBarcode = async (barcode) => {
+  try {
+    const db = await connectDb()
+
+    const result = await db.executeSql(`SELECT * FROM products WHERE barcode='${barcode}'`)
+
+    if (result && result[0].rows.length > 0) {
+      return result[0].rows.item(0)
+    }
+
+    return null
+  } catch (error) {
+    throw Error(error)
+  }
+}
