@@ -4,10 +4,12 @@ import { Text } from '@rneui/themed';
 import globalStyles from '../../globalStyles';
 import { findProductById } from '../../services/product';
 import CustomRow from '../../components/CustomRow';
+import ModalBarcode from '../../components/ModalBarcode';
 
 export default function OrderNew({ navigation }) {
   const [id, setId] = useState('');
   const [qtd, setQtd] = useState('1');
+  const [modalVisible, setModalVisible] = useState(false);
 
   const [productTemp, setProductTemp] = useState(null)
   const [products, setProducts] = useState([])
@@ -89,8 +91,14 @@ export default function OrderNew({ navigation }) {
     }
   }
 
+  const setBarcode = (barcode) => {
+    console.log('Passou aqui: ' + barcode);
+    setModalVisible(false);
+  }
+
   return (
     <SafeAreaView style={{ padding: 15 }}>
+      <ModalBarcode modalVisible={modalVisible} setBarcode={setBarcode} setModalVisible={setModalVisible} />
       <View style={{ ...styles.column, justifyContent: 'flex-start', gap: 10 }}>
         <View style={{ width: '30%'}}>
           <Text style={globalStyles.labelBase}>Cod. Produto</Text>
@@ -111,7 +119,7 @@ export default function OrderNew({ navigation }) {
         </View>
         <View style={{ width: '30%'}}>
           <Text style={globalStyles.labelBase}></Text>
-          <TouchableOpacity style={styles.buttonOrder} onPress={() => addOrder()}>
+          <TouchableOpacity style={styles.buttonOrder} onPress={() => setModalVisible(true) }>
             <Text style={styles.buttonOrderText}>Escanear</Text>
           </TouchableOpacity>
         </View>
