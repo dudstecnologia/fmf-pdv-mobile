@@ -42,6 +42,7 @@ export default function OrderList({ navigation }) {
 
   return (
     <SafeAreaView style={{ flex: 1 }}>
+      <Text style={styles.title}>Produtos Mais Vendidos</Text>
       <PieChart
         data={ordersChart}
         width={width - 10}
@@ -57,12 +58,13 @@ export default function OrderList({ navigation }) {
           }
         }}
         accessor={"total"}
-        backgroundColor={"transparent"}
+        backgroundColor={"white"}
         paddingLeft={"15"}
         center={[0, 0]}
         // absolute
       />
 
+      <Text style={styles.title}>Lista de Vendas</Text>
       <FlatList
         data={orders}
         renderItem={({ item }) => <View style={styles.container}>
@@ -106,5 +108,13 @@ const styles = StyleSheet.create({
   price: {
     fontSize: 18,
     color: 'blue',
+  },
+  title: {
+    fontSize: 25,
+    color: '#000',
+    textAlign: 'center',
+    fontWeight: 'bold',
+    marginTop: 5,
+    marginBottom: 5
   }
 });
