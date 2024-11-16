@@ -1,17 +1,18 @@
 import React, { useEffect, useState } from 'react';
 import {
-  SafeAreaView,
-  TextInput,
-  View,
   TouchableOpacity,
+  SafeAreaView,
   StyleSheet,
+  TextInput,
+  FlatList,
   Alert,
-  FlatList } from 'react-native';
+  View } from 'react-native';
 import { Text } from '@rneui/themed';
 import globalStyles from '../../globalStyles';
 import { findProductById, findProductByBarcode } from '../../services/product';
 import CustomRow from '../../components/CustomRow';
 import ModalBarcode from '../../components/ModalBarcode';
+import { createOrder } from '../../services/order';
 
 export default function OrderNew({ navigation }) {
   const [id, setId] = useState('');
@@ -41,20 +42,38 @@ export default function OrderNew({ navigation }) {
     }
 
     try {
-      let product = await findProductById(id)
+      let product = await findProductById(id);
 
       if (!product) {
-        throw ''
+        throw '';
       }
 
-      setProductTemp(product)
+      setProductTemp(product);
     } catch (e) {
-      setProductTemp(null)
+      setId('');
+      setProductTemp(null);
       Alert.alert('Ops!', 'Produto não encontrado');
     }
   }
 
-  const addProduct = async = () => {
+  const setBarcode = async (barcode) => {
+    setModalVisible(false);
+
+    try {
+      let product = await findProductByBarcode(barcode);
+
+      if (!product) {
+        throw '';
+      }
+
+      setProductTemp(product);
+    } catch (e) {
+      setProductTemp(null);
+      Alert.alert('Ops!', 'Produto não encontrado');
+    }
+  }
+
+  const addProduct = async () => {
     if (isNaN(parseInt(qtd)) || qtd.includes(',') || qtd.includes('.')) {
       Alert.alert('Ops!', 'A quantidade deve ser um número inteiro');
       return false;
@@ -76,42 +95,20 @@ export default function OrderNew({ navigation }) {
   }
 
   const addOrder = () => {
-    if (!name || !barcode || !price || !stock) {
-      Alert.alert('Ops!', 'Todos os campos são obrigatórios');
-      return false;
-    }
-
-    if (isNaN(parseFloat(price)) || parseFloat(price) <= 0) {
-      Alert.alert('Ops!', 'O preço é obrigatório');
-      return false;
-    }
-
-    if (isNaN(parseInt(stock)) || stock.includes(',') || stock.includes('.')) {
-      Alert.alert('Ops!', 'O estoque deve ser um número inteiro');
+    if (products.length < 1) {
+      Alert.alert('Ops!', 'Pelo menos um produto é necessário');
       return false;
     }
 
     try {
+      createOrder(products, total);
+      setId('');
+      setQtd('1');
+      setProducts([]);
+      setProductTemp(null);
       Alert.alert('Perfeito!', 'Salvo com sucesso');
     } catch (e) {
       Alert.alert('Ops!', 'Erro ao salvar, detalhes:' + e);
-    }
-  }
-
-  const setBarcode = async (barcode) => {
-    setModalVisible(false);
-
-    try {
-      let product = await findProductByBarcode(barcode)
-
-      if (!product) {
-        throw ''
-      }
-
-      setProductTemp(product)
-    } catch (e) {
-      setProductTemp(null)
-      Alert.alert('Ops!', 'Produto não encontrado');
     }
   }
 
